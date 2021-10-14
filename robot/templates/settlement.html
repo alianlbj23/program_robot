@@ -1,0 +1,143 @@
+{% extends "base.html" %}
+{% block title %}結算畫面{% endblock %}
+{% block javascript %} 
+<script>
+    $(document).ready(function(){
+        $(".btn1").click(function(){
+            $(this).css('display', 'none');
+            $("div").removeClass("change").addClass("fadein")
+        });
+    });
+</script>
+{% endblock %}
+
+{% block css %}
+<style>
+    #correct{
+        text-align:left;
+        font-family:fantasy;
+        font-size:200%;
+        color:green;
+    }
+    #erro{
+        text-align:left;
+        font-family:fantasy;
+        font-size:200%;
+        color:red;
+    }
+    #ans{
+        text-align:center;
+        font-family:fantasy;
+        font-size:400%;
+        color:orange;
+    }
+    .button {
+        background-color: #0088ff; 
+        border: none;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 20px;
+        margin: 4px 2px;
+        cursor: pointer;
+        -webkit-transition-duration: 0.4s; /* Safari */
+        transition-duration: 0.4s;;
+    }
+    .button:hover {
+        box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+    }
+    .change{
+        display:none;
+    }
+    .fadein{
+        opacity: 1;
+        padding:20px;
+        animation-name: fadeInOpacity;
+        animation-iteration-count: 1;
+        animation-timing-function: ease-in;
+        animation-duration: 0.5s;
+    }
+    @keyframes fadeInOpacity {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+    
+</style>
+{% endblock %}
+
+{% block content %}
+
+<button class="btn1 button">結算畫面</button>
+
+<div class="change">
+<script src="https://cdn.jsdelivr.net/npm/chart.xkcd@1.1/dist/chart.xkcd.min.js"></script>
+
+<canvas id="myChart" width="400" height="200" style="background-color:white;"></canvas>
+<script >
+var ctx = document.getElementById('myChart').getContext('2d');
+var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: [
+            '1', '2', '3', '4', '5'
+        ],
+        datasets: [{
+            axis: 'y',
+            label: '答題秒數',
+            data: [
+                {% for item in timer %}
+                    {{ item }},
+                    
+                {% endfor %}
+            ],
+            
+            backgroundColor: [
+                
+                {% for i in ans %}
+                    {% if i %}
+                'rgba(255, 99, 132, 0.5)',
+                    {% else %}
+                'rgba(255, 215, 0, 0.5)',
+                    {% endif %}
+                {% endfor %}
+            ],
+            borderColor: [
+                {% for i in ans %}
+                    {% if i %}
+                'rgba(255, 99, 132, 0.5)',
+                    {% else %}
+                'rgba(255, 215, 0, 0.5)',
+                    {% endif %}
+                {% endfor %}
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+});
+</script>
+<br>
+{% for i in ans %}
+    {% if i %}
+        <p id="correct">第{{forloop.counter}}題答對</p>
+    {% else %}
+        <p id="erro">第{{forloop.counter}}題答錯</p>
+    {% endif %}
+{% endfor %}
+<p id="ans">共答對{{ ans_correct }}題!</p>
+
+<br>
+<a href="/index/{{ name }}/{{ password }}/"><button class="button">回首頁</button></a>
+</div>
+{% endblock %}

@@ -1,0 +1,43 @@
+
+{% extends 'base.html' %}
+{% block title %} SignUp {% endblock %}
+
+{% block css %}
+<style>
+    table{
+        font-size:150%;
+        
+    }
+</style>
+{% endblock %}
+<!--分隔線--> 
+{% block content %}
+{% if message %}
+    <div class="alert alert-warning">{{ message }}</div>
+{% endif %}
+<div>
+<!--  <form action = '.' method = 'POST'>-->
+    <form action="" enctype="multipart/form-data" method="POST"> <!--enctype="multipart/form-data" 丟圖片時要加的-->
+        {% csrf_token %}
+        <table>
+            {{ signup_form.as_table }}
+            
+
+        </table>
+        <input type = 'submit' value = '註冊'>
+    </from>
+    
+     
+
+
+     
+
+
+
+    
+
+
+<br><br>
+<a href="/"><button type="button" class="btn btn-primary">回登入畫面</button></a>
+
+{% endblock %}

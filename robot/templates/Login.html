@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %}登入畫面{% endblock %}
+
+
+
+{% block css %}
+<style>
+    #photo{
+        width: 100%;
+        height: 320px;
+        object-fit: cover;
+    }
+</style>
+{% endblock%}
+
+
+{% block content %}
+
+<h3>登入畫面</h3>
+<a href = '/Signup/'><button type="button" class="btn btn-success">註冊</button></a>
+<div class="row">
+    {% for userdata in userdatas %}
+    <div class="col-9 col-md-4  ">
+        <div class="card " style="width:100%;">
+            <a href = '/index/{{ userdata.name }}/{{ userdata.password }}'>
+                <img class="card-img-top" src="{{ userdata.image.url }}" alt="Card image" id="photo">
+            </a>
+            <div class="card-body">
+                <h4 class="card-title">{{ userdata.name }}</h4>
+                <p class="card-text">生日:{{ userdata.year }}年{{ userdata.moth}}月{{ userdata.day }}日</p>
+            </div>
+        </div>
+        <br>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
+

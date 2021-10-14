@@ -1,0 +1,51 @@
+{% extends "base.html"%}
+{% block title %}注意力遊戲{% endblock %}
+{% block javascript %} 
+<script>
+$(document).ready(function(){
+    var ans_time = []
+    var count
+    window.setInterval(countdown, 1000);
+    timer = document.getElementById("countdown");
+    function countdown(){
+        timer.innerHTML = timer.innerHTML - (-1);
+        console.log(timer.innerHTML)
+        if (timer.innerHTML == 13) {
+            $("#end").css("display", "");
+        }
+        
+    }
+    $("#btn").click(function(){
+        if (ans_time.length < 3){
+            ans_time.push($("#countdown").text())
+            console.log(ans_time)
+        }
+    });  
+
+    $("#end").click(function(){
+        $.ajax({
+                url:"/attention_ajax/",
+                traditional: true,
+                type:'GET',
+                //dataType:'json',
+                data:{
+                    "ans1": ans_time[0],
+                    "ans2": ans_time[1],
+                    "ans3": ans_time[2],
+                },
+                success: function(){
+                    
+                }
+        })
+    });
+})
+</script>
+{% endblock %}
+{% block content %}
+<audio controls autoplay>
+    <source src="/media/music/test.mp3" type="audio/mpeg">
+</audio>
+<button id="btn">錯誤</button>
+<button id="end" style="display:none">遊戲結束</button>
+<p id="countdown" style="display:none">0</p>
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block css%}
+<style>
+    tr{
+        font-size: 200%;
+    }
+    #photo{
+        width: 100%;
+        height: 320px;
+        object-fit: cover;
+    }
+</style>
+{% endblock %}
+{% block content %}
+<h3>首頁</h3>
+<a href = '/'><button type="button" class="btn btn-warning">登出</button></a>
+<table>
+    <tr><td>姓名:{{ individual.name }} </td> </tr>
+    <tr><td>生日:{{ individual.year}}/{{ individual.month }}/{{ individual.day}} </td> </tr>
+    <tr><td><img src="{{individual.image.url }}" width="200" alt="錯誤" id="photo"> </td> </tr>
+</table>
+
+
+
+
+<a href = '/introduction/短期記憶遊戲/{{ name }}/{{ password }}'>短期記憶遊戲</a>
+<a href = '/attention/<str:name>/<str:password>/'>注意力</a>
+{% endblock %}
+<!--<a class="nav-link" href="/testpage/{{n}}">短期記憶遊戲</a>-->

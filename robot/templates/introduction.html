@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}遊戲介紹{% endblock %}
+{% block css %}
+<style>
+    .button {
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 20px;
+  margin: 4px 2px;
+  cursor: pointer;
+  -webkit-transition-duration: 0.4s; /* Safari */
+  transition-duration: 0.4s;
+}
+.button2:hover {
+  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+}
+</style>
+{% endblock %}
+{% block content %}
+
+    <h1>歡迎來到{{ game_data.title }}</h1>
+    <h2 >遊戲介紹</h2>
+    <p style="font-size:200%;">{{ game_data.text }}</p>
+    
+    <div class="row">
+        <div class="col-sm-6">
+        <a href = '/{{title}}/{{ n }}/{{ name }}/{{ password}}/'><button class="button button2">開始遊戲</button></a>
+        </div>
+    </div>
+    
+{% endblock %}
